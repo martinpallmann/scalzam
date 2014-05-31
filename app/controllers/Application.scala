@@ -25,7 +25,7 @@ object Application extends Controller {
       val transformed: Seq[Seq[Complex]] = toSeq(audio).map(FastFourierTransformation.fft)
 
       val buckets = List(0, 40, 80, 120, 180, Int.MaxValue).sliding(2).toList
-      val result: Seq[List[Double]] = transformed.map(a => for (b <- buckets) yield Math.log(a.zipWithIndex.view(b.head, b.tail.head).toList.max._2.abs + 1))
+      val result: Seq[List[Int]] = transformed.map(a => for (b <- buckets) yield a.zipWithIndex.view(b.head, b.tail.head).toList.max._2)
       val hashes: Seq[Long] = result.map(hash)
       hashes.zipWithIndex.foreach{case (e, i) => println(i + " " + e)}
       Ok("OK")
@@ -36,7 +36,7 @@ object Application extends Controller {
     audio.grouped(chunkSize).toSeq.map(_.map(a => Complex(a, 0))).takeWhile(_.size == chunkSize)
   }
 
-  def hash(l: List[Double]): Long = {
+  def hash(l: List[Int]): Long = {
     val damping = 2L
     l.foldLeft((0L, 100L)) {
       (acc, elem) => (acc._1 + (elem.toLong - elem.toLong % damping) * acc._2, acc._2 * 100L)

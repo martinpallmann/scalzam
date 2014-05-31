@@ -24,7 +24,7 @@ case class Complex(re: Double, im: Double) extends Ordered[Complex] {
     }
   }
 
-  override def compare(that: Complex): Int = (this.abs * 1000 - that.abs * 1000).toInt
+  override def compare(that: Complex): Int = (this.abs * 100000 - that.abs * 100000).toInt
 }
 
 object Complex {
