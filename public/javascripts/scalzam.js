@@ -18,6 +18,7 @@ var stopRecording = function() {
   });
 };
 
+
 var postAudio = function(blob) {
 
   var fileType = 'audio';
@@ -35,17 +36,6 @@ var postAudio = function(blob) {
     contentType: false,
     success: function (res) {
       console.log(res);
-    }
-  });
-};
-
-
-var viewSpectrum = function() {
-  jQuery.ajax({
-    url: "/_spectrum",
-    type: "GET",
-    success: function(res) {
-      console.loc(res);
     }
   });
 };

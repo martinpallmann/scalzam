@@ -40,7 +40,7 @@ object Application extends Controller {
     val damping = 2L
     l.foldLeft((0L, 100L)) {
       (acc, elem) => (acc._1 + (elem.toLong - elem.toLong % damping) * acc._2, acc._2 * 100L)
-    }._1
+    }._1 / (100L * damping)
   }
 
   private def readFile(file: File): List[Byte] = {
